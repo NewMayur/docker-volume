@@ -1,10 +1,18 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Flask App</title>
-  </head>
-  <body>
-    <h1>Hello, Flask!</h1>
-  </body>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Minimal Flask App</title>
+</head>
+<body>
+    <h1>Messages</h1>
+    <form method="POST">
+        <input type="text" name="content" required>
+        <button type="submit">Add Message</button>
+    </form>
+    <ul>
+        {% for message in messages %}
+            <li>{{ message.content }}</li>
+        {% endfor %}
+    </ul>
+</body>
 </html>
