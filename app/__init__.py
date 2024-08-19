@@ -1,17 +1,19 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
-app = Flask(__name__, instance_relative_config=True)
-app.config.from_mapping(
-    SECRET_KEY='dev',
-    SQLALCHEMY_DATABASE_URI='sqlite:///instance/flaskr.sqlite',
-)
-
-db = SQLAlchemy(app)
-
-from . import routes
-app.register_blueprint(routes.bp)
+db = SQLAlchemy()
 
 def create_app():
+    app = Flask(__name__)
+    app.config.from_object('config.Config')
+
     db.init_app(app)
+
+    # Check if the tables exist before creating them
+    with app.app_context():
+        db.create_all()
+
+    from app import routes
+    app.register_blueprint(routes.main)
+
     return app
