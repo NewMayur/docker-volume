@@ -2,7 +2,15 @@ from flask import Blueprint, render_template, request, redirect, url_for
 from app import db
 from app.models import Message
 
+
+
 main = Blueprint('main', __name__)
+
+import os
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'instance', 'messages.db')
+SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 @main.route('/', methods=['GET', 'POST'])
 def index():

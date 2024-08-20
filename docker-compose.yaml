@@ -6,7 +6,7 @@ services:
       - "5000:5000"
     volumes:
       - ./app:/app/app
-      - data:/app/instance
+      - ./messages.db:/app/messages.db
 
 volumes:
   data:
